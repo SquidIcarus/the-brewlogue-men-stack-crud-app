@@ -19,6 +19,7 @@ const Beer = require("./models/beer.js");
 
 app.use(express.urlencoded({ extrended: false }));
 app.use(methodOverride('_method'));
+app.use(morgan("dev"));
 
 app.listen(port, () => {
     console.log(`The express app is ready on port ${port}!`);
@@ -37,6 +38,11 @@ app.get("/beers", async (req, res) => {
 
 app.get("/beers/new", (req, res) => {
     res.render("beers/new.ejs");
+});
+
+app.get("/beers/:beerId", async (req, res) => {
+    const foundBeer = await Beer.findById(req.params.beerId);
+    res.render("beers/show.ejs", { beer: foundBeer });
 });
 
 //POST

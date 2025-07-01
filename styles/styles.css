@@ -1,0 +1,9 @@
+.beer-stats {
+    display: flex;
+    flex-direction: row;
+}
+
+.botanicals {
+    display: flex;
+    flex-direction: row;
+}

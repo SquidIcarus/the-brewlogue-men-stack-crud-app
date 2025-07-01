@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/styles.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"> -->
+    <title>
+        <% beer.name %>
+    </title>
+</head>
+
+<body>
+    <h1>
+        <%= beer.name %>
+    </h1>
+    <h2>
+        <%= beer.style %>
+    </h2>
+    <div class="beer-stats">
+        <h5>ABV: <%= beer.abv %>%</h5>
+        <h5>IBU: <%= beer.ibu %>
+        </h5>
+    </div>
+    <h5>FLAVOR PROFILE:</h5>
+    <p>
+        <%= beer.flavorProfile %>
+    </p>
+    <div class="botanicals">
+        <h5>MALT: <%= beer.malt %>
+        </h5>
+        <h5>HOPS: <%= beer.hops %>
+        </h5>
+    </div>
+    <h5>FOOD PAIRING NOTES:</h5>
+    <p>
+        <%= beer.foodPairing %>
+    </p>
+
+    <h5>AVAILABILITY:</h5>
+    <p>
+        <%= beer.availability %>
+    </p>
+    
+</body>
+<footer>
+    <a href="/">Home</a>
+    <a href="/beers/">Back to Brews</a>
+    <a href="/beers/new">Tap a new brew</a>
+</footer>
+
+</html>

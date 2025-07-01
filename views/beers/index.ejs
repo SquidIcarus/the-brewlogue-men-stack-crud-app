@@ -12,10 +12,14 @@
     <ul>
         <% beers.forEach(beer=> { %>
             <li>
-                <%= beer.name %>
+                <a href="/beers/<%= beer._id %>">
+                    <%= beer.name %>
+                </a>
             </li>
             <% }); %>
     </ul>
 </body>
+
+<a href="/beers/new">Tap a new brew</a>
 
 </html>
