@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brew Catalog</title>
+</head>
+
+<body>
+    <h1>The Brewlogue</h1>
+    <ul>
+        <% beers.forEach(beer=> { %>
+            <li>
+                <%= beer.name %>
+            </li>
+            <% }); %>
+    </ul>
+</body>
+
+</html>

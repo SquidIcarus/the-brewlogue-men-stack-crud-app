@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Brew</title>
+</head>
+
+<body>
+    <h1>Upload a new brew!</h1>
+    <form action="/beers" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" />
+        <label for="style">Style:</label>
+        <input type="text" name="style" id="style" />
+        <label for="flavorProfile">Flavor Profile:</label>
+        <input type="text" name="flavorProfile" id="flavorProfile" />
+        <label for="abv">ABV:</label>
+        <input type="number" name="abv" id="abv" />
+        <span>%</span>
+        <label for="ibu">IBU:</label>
+        <input type="number" name="ibu" id="ibu" />
+        <label for="malt">Malt:</label>
+        <input type="text" name="malt" id="malt" />
+        <label for="hops">Hops:</label>
+        <input type="text" name="hops" id="hops" />
+        <label for="foodPairing">Pairs With:</label>
+        <input type="text" name="foodPairing" id="foodPairing" />
+        <label for="availability">Availability:</label>
+        <input type="text" name="availability" id="availability" />
+        <button type="submit">Add Beer</button>
+    </form>
+</body>
+
+</html>

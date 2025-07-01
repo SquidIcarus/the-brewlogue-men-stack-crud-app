@@ -15,6 +15,8 @@ mongoose.connection.on('connected', () => {
     console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
 });
 
+const Beer = require("./models/beer.js");
+
 app.use(express.urlencoded({ extrended: false }));
 app.use(methodOverride('_method'));
 
@@ -25,5 +27,26 @@ app.listen(port, () => {
 // GET
 
 app.get("/", async (req, res) => {
-    res.send("hello, friend!");
+    res.render("index.ejs");
+});
+
+app.get("/beers", async (req, res) => {
+    const allBeers = await Beer.find();
+    res.render("beers/index.ejs", { beers: allBeers });
+});
+
+app.get("/beers/new", (req, res) => {
+    res.render("beers/new.ejs");
+});
+
+//POST
+
+app.post("/beers", async (req, res) => {
+    try {
+        await Beer.create(req.body);
+        res.redirect("/Beers");
+    } catch (err) {
+        console.error("Error saving beer", err);
+        res.status(500).send("Error saving beer to database");
+    }
 });
