@@ -4,8 +4,6 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/styles/styles.css">
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"> -->
     <title>
         <% beer.name %>
     </title>
@@ -42,12 +40,17 @@
     <p>
         <%= beer.availability %>
     </p>
-    
+    <br>
+    <form action="/beers/<%= beer._id %>?_method=DELETE" method="POST">
+        <button type="submit">Delete <%= beer.name %></button>
+    </form>
 </body>
 <footer>
+    <br>
     <a href="/">Home</a>
+    <a href="/beers/<%= beer._id %>/edit">Edit <%= beer.name %></a>
     <a href="/beers/">Back to Brews</a>
-    <a href="/beers/new">Tap a new brew</a>
+
 </footer>
 
 </html>

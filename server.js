@@ -16,6 +16,7 @@ mongoose.connection.on('connected', () => {
 });
 
 const Beer = require("./models/beer.js");
+const beer = require("./models/beer.js");
 
 app.use(express.urlencoded({ extrended: false }));
 app.use(methodOverride('_method'));
@@ -45,14 +46,39 @@ app.get("/beers/:beerId", async (req, res) => {
     res.render("beers/show.ejs", { beer: foundBeer });
 });
 
+app.delete("/beers/:beerId", async (req, res) => {
+    await Beer.findByIdAndDelete(req.params.beerId);
+    res.redirect("/beers");
+});
+
+app.get("/beers/:beerId/edit", async (req, res) => {
+    const foundBeer = await Beer.findById(req.params.beerId);
+    console.log(foundBeer);
+    res.render("beers/edit.ejs", {
+        beer: foundBeer,
+    });
+});
+
 //POST
 
 app.post("/beers", async (req, res) => {
     try {
         await Beer.create(req.body);
-        res.redirect("/Beers");
+        res.redirect("/beers");
     } catch (err) {
         console.error("Error saving beer", err);
         res.status(500).send("Error saving beer to database");
+    }
+});
+
+//PUT
+
+app.put("/beers/:beerId", async (req, res) => {
+    try {
+        await Beer.findByIdAndUpdate(req.params.beerId, req.body);
+        res.redirect(`/beers/${req.params.beerId}`);
+    } catch (err) {
+        console.error("Error updating beer", err);
+        res.status(500).send("Error updating beer to database");
     }
 });
