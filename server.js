@@ -6,6 +6,10 @@ const app = express();
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const morgan = require("morgan");
+const path = require("path");
+const session = require("express-session");
+
+const authController = require("./controllers/auth.js");
 
 const port = process.env.PORT ? process.env.PORT : "5500"
 
@@ -18,18 +22,29 @@ mongoose.connection.on('connected', () => {
 const Beer = require("./models/beer.js");
 const beer = require("./models/beer.js");
 
+// MIDDLEWARE STACK
+
 app.use(express.urlencoded({ extrended: false }));
 app.use(methodOverride('_method'));
 app.use(morgan("dev"));
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET,
+        resave: false,
+        saveUninitialized: true,
+    })
+);
 
-app.listen(port, () => {
-    console.log(`The express app is ready on port ${port}!`);
-});
+app.use("/auth", authController)
+
+app.use(express.static(path.join(__dirname, "public")));
 
 // GET
 
 app.get("/", async (req, res) => {
-    res.render("index.ejs");
+    res.render("index.ejs", {
+        user: req.session.user,
+    });
 });
 
 app.get("/beers", async (req, res) => {
@@ -59,6 +74,14 @@ app.get("/beers/:beerId/edit", async (req, res) => {
     });
 });
 
+app.get("/brew-den", (req, res) => {
+    if (req.session.user) {
+        res.render("brewden.ejs");
+    } else {
+        res.send("Brewers only!");
+    }
+});
+
 //POST
 
 app.post("/beers", async (req, res) => {
@@ -81,4 +104,8 @@ app.put("/beers/:beerId", async (req, res) => {
         console.error("Error updating beer", err);
         res.status(500).send("Error updating beer to database");
     }
+});
+
+app.listen(port, () => {
+    console.log(`The express app is ready on port ${port}!`);
 });
