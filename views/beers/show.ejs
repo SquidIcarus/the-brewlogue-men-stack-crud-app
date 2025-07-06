@@ -5,7 +5,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/stylesheets/style.css" />
-    <title><%= beer.name %></title>
+    <title>
+        <%= beer.name %>
+    </title>
 </head>
 
 <body>
@@ -44,12 +46,11 @@
         <button type="submit">Delete <%= beer.name %></button>
     </form>
 </body>
-<footer>
-    <br>
-    <a href="/">Home</a>
-    <a href="/beers/<%= beer._id %>/edit">Edit <%= beer.name %></a>
-    <a href="/beers/">Back to Brews</a>
-
-</footer>
+<nav>
+    <a href="/">Home</a> |
+    <% if (user && user.role==='admin' ) { %>
+        | <a href="/brew-den">Brewers' Den</a>
+        <% } %>
+</nav>
 
 </html>

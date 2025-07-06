@@ -11,22 +11,27 @@
 <body>
     <% if (user) { %>
         <h1>Welcome to the Brewlogue, <%= user.username %>!</h1>
-
-        <% } else { %>
-            <h1>Welcome to the Brewlogue</h1>
-            <h2>A catalog of beers!</h2>
-            <p>
-                <a href="/auth/sign-up">Sign up</a> or <a href="/auth/sign-in">Login</a>.
-            </p>
+        <% if (user.role==='admin' ) { %>
+            <p><a href="/brew-den" class="admin-link">Brewers' Den (Admin Portal)</a></p>
             <% } %>
-                <p><a href="/brew-den">Brewers' only Brew Den</a></p>
-                <P><a href="/beers">Browse Brews</a></P>
+
+                <% } else { %>
+                    <h1>Welcome to the Brewlogue</h1>
+                    <h2>A catalog of beers!</h2>
+                    <p>
+                        <a href="/auth/sign-up">Sign up</a> or <a href="/auth/sign-in">Login</a>.
+                    </p>
+                    <% } %>
+                        <nav>
+                            <a href="/beers">Browse Brews</a>
+                        </nav>
 </body>
 
 <footer>
-
     <br>
-    <a href="/auth/sign-out">Sign out</a>
+    <% if (user) { %>
+        <a href="/auth/sign-out">Sign out</a>
+        <% } %>
 
 </footer>
 

@@ -39,6 +39,14 @@ app.use("/auth", authController)
 
 app.use(express.static(path.join(__dirname, "public")));
 
+
+function requireAdmin(req, res, next) {                           // middleware to check if user is admin                 
+    if (!req.session.user || req.session.user.role !== 'admin') {
+        return res.render("forbidden.ejs", { user: req.session.user });
+    }
+    next();
+}
+
 // GET
 
 app.get("/", async (req, res) => {
@@ -52,8 +60,8 @@ app.get("/beers", async (req, res) => {
     res.render("beers/index.ejs", { beers: allBeers });
 });
 
-app.get("/beers/new", (req, res) => {
-    res.render("beers/new.ejs");
+app.get("/beers/new", requireAdmin, (req, res) => {       //   `requireAdmin` applied middleware to protect admin routes
+    res.render("beers/new.ejs", { user: req.session.user })
 });
 
 app.get("/beers/:beerId", async (req, res) => {
@@ -61,30 +69,31 @@ app.get("/beers/:beerId", async (req, res) => {
     res.render("beers/show.ejs", { beer: foundBeer });
 });
 
-app.delete("/beers/:beerId", async (req, res) => {
+app.delete("/beers/:beerId", requireAdmin, async (req, res) => {
     await Beer.findByIdAndDelete(req.params.beerId);
     res.redirect("/beers");
 });
 
-app.get("/beers/:beerId/edit", async (req, res) => {
+app.get("/beers/:beerId/edit", requireAdmin, async (req, res) => {
     const foundBeer = await Beer.findById(req.params.beerId);
     console.log(foundBeer);
     res.render("beers/edit.ejs", {
         beer: foundBeer,
+        user: req.session.user
     });
 });
 
-app.get("/brew-den", (req, res) => {
-    if (req.session.user) {
-        res.render("brewden.ejs");
+app.get("/brewden", (req, res) => {
+    if (req.session.user && req.session.user.role === 'admin') {    // checks for admin role to enter brewden
+        res.render("/brewden");
     } else {
-        res.send("Brewers only!");
+        res.render("/forbidden");
     }
 });
 
 //POST
 
-app.post("/beers", async (req, res) => {
+app.post("/beers", requireAdmin, async (req, res) => {
     try {
         await Beer.create(req.body);
         res.redirect("/beers");
@@ -96,7 +105,7 @@ app.post("/beers", async (req, res) => {
 
 //PUT
 
-app.put("/beers/:beerId", async (req, res) => {
+app.put("/beers/:beerId", requireAdmin, async (req, res) => {
     try {
         await Beer.findByIdAndUpdate(req.params.beerId, req.body);
         res.redirect(`/beers/${req.params.beerId}`);

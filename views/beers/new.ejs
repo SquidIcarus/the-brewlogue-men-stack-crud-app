@@ -34,8 +34,14 @@
     </form>
 </body>
 <br>
-<footer>
-    <a href="/beers/">Back to Brews</a>
-</footer>
+
+<nav>
+    <a href="/">Home</a> |
+    <a href="/beers">Browse Brews</a>
+    <% if (user && user.role==='admin' ) { %>
+        | <a href="/brew-den">Brewers' Den</a>
+        <% } %>
+</nav>
+
 
 </html>

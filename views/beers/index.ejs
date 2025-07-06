@@ -20,9 +20,13 @@
             <% }); %>
     </ul>
 </body>
-<footer>
-    <a href="/">Home</a>
-    
-</footer>
+<nav>
+    <a href="/">Home</a> |
+    <a href="/beers">Browse Brews</a>
+    <% if (user && user.role==='admin' ) { %>
+        | <a href="/brew-den">Brewers' Den</a>
+        <% } %>
+</nav>
+
 
 </html>
