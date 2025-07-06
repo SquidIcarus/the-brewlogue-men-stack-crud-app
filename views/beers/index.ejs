@@ -27,10 +27,16 @@
 </body>
 <nav>
     <a href="/">Home</a> |
-    <a href="/beers">Browse Brews</a>
-    <% if (user && user.role==='admin' ) { %>
-        | <a href="/brewden">Brewers' Den</a>
-        <% } %>
+
+    <% if (user) { %>
+        <a href="/auth/sign-out">Log Out</a>
+        <% if (user.role==='admin' ) { %>
+            | <a href="/brewden">Brewers' Den</a>
+            <% } %>
+                <% } else { %>
+                    <a href="/auth/sign-in">Log in</a> |
+                    <a href="/auth/sign-up">Sign up</a>
+                    <% } %>
 </nav>
 
 

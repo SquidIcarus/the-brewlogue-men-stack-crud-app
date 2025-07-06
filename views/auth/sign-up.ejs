@@ -23,19 +23,19 @@
             <label for="adminCode">Admin Code:</label>
             <input type="password" name="adminCode" id="adminCode" required />
             <% } %>
-                <button type="submit">Sign up</button>
+                <button type="submit">Sign Up</button>
     </form>
 
     <% if (!isAdminSignup) { %>
-        <p>Need admin access? <a href="/auth/admin/sign-up">Sign up as admin</a></p>
+        <p>Need Admin access? <a href="/auth/admin/sign-up">Sign up as Admin</a></p>
         <% } else { %>
-            <p>Regulare user? <a href="/auth/sign-up">Sign up here</a></p>
+            <p>Regular user? <a href="/auth/sign-up">Sign up here</a></p>
             <% } %>
 
                 <br>
                 <footer>
-                    <a href="/">Home</a>
-                    <a href="/auth/sign-in">sign in</a>
+                    <a href="/">Home</a> |
+                    <a href="/auth/sign-in">Log In</a>
                 </footer>
 </body>
 
