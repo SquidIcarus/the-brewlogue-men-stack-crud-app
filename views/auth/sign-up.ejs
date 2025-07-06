@@ -8,21 +8,36 @@
 </head>
 
 <body>
-    <h1>Create a new account!</h1>
-    <form action="/auth/sign-up" method="POST">
+    <h1>
+        <%= isAdminSignup ? 'Create a new admin account!' : 'Create a new account!' %>
+    </h1>
+    <form action="<%= isAdminSignup ? '/auth/admin/sign-up' : '/auth/sign-up' %>" method="POST">
         <label for="username">Username:</label>
-        <input type="text" name="username" id="username" />
+        <input type="text" name="username" id="username" required />
         <label for="password">Password:</label>
-        <input type="password" name="password" id="password" />
+        <input type="password" name="password" id="password" required />
         <label for="confirmPassword">Confirm Password:</label>
-        <input type="password" name="confirmPassword" id="confirmPassword" />
-        <button type="submit">Sign up</button>
+        <input type="password" name="confirmPassword" id="confirmPassword" required />
+
+        <% if (isAdminSignup) { %>
+            <label for="adminCode">Admin Code:</label>
+            <input type="password" name="adminCode" id="adminCode" required />
+            <% } %>
+                <button type="submit">Sign up</button>
     </form>
+
+    <% if (!isAdminSignup) { %>
+        <p>Need admin access? <a href="/auth/admin/sign-up">Sign up as admin</a></p>
+        <% } else { %>
+            <p>Regulare user? <a href="/auth/sign-up">Sign up here</a></p>
+            <% } %>
+
+                <br>
+                <footer>
+                    <a href="/">Home</a>
+                    <a href="/auth/sign-in">sign in</a>
+                </footer>
 </body>
-<br>
-<footer>
-    <a href="/">Home</a>
-    <a href="/auth/sign-in">sign in</a>
-</footer>
+
 
 </html>
