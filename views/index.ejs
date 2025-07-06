@@ -12,7 +12,7 @@
     <% if (user) { %>
         <h1>Welcome to the Brewlogue, <%= user.username %>!</h1>
         <% if (user.role==='admin' ) { %>
-            <p><a href="/brew-den" class="admin-link">Brewers' Den (Admin Portal)</a></p>
+            <p><a href="/brewden" class="admin-link">Brewers' Den (Admin Portal)</a></p>
             <% } %>
 
                 <% } else { %>

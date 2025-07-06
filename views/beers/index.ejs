@@ -10,21 +10,26 @@
 
 <body>
     <h1>The Brewlogue</h1>
-    <ul>
-        <% beers.forEach(beer=> { %>
-            <li>
-                <a href="/beers/<%= beer._id %>">
-                    <%= beer.name %>
-                </a>
-            </li>
-            <% }); %>
-    </ul>
+
+    <% if (user && user.role==='admin' ) { %>
+        <a href="/beers/new">Add New Beer</a>
+        <% } %>
+
+            <ul>
+                <% beers.forEach(beer=> { %>
+                    <li>
+                        <a href="/beers/<%= beer._id %>">
+                            <%= beer.name %>
+                        </a>
+                    </li>
+                    <% }); %>
+            </ul>
 </body>
 <nav>
     <a href="/">Home</a> |
     <a href="/beers">Browse Brews</a>
     <% if (user && user.role==='admin' ) { %>
-        | <a href="/brew-den">Brewers' Den</a>
+        | <a href="/brewden">Brewers' Den</a>
         <% } %>
 </nav>
 

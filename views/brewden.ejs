@@ -8,20 +8,27 @@
 </head>
 
 <body>
-    <h1>Welcome to the Brewers' Den!, <%= user.username %>!</h1>
-    <nav>
-        <a href="/">Home</a> | <a href="beers">Browse Brews</a>
-    </nav>
+    <h1>Welcome to the Brewers' Den, <%= user.username %>!</h1>
 
-    <h2>Admin Controls</h2>
+    <h2>Admin Portal</h2>
     <div class="admin-options">
-        <p><a href="/beers/new" class="btn">Tap a new Brew</a></p>
-        <p><a href="/beers" class="btn">Manage Existing Brews</a></p>
+        <!-- <p><a href="/beers/new" button type="submit">Tap a new Brew</a></p> -->
+        <form action="/beers/new">
+            <button type="submit">Tap a new Brew</button>
+        </form>
+        </p>
+        <!-- <p><a href="/beers" class="btn">Manage Existing Brews</a></p> -->
+        <form action="/beers">
+            <button type="submit">Manage Existing Brews</button>
+        </form>
+        </p>
     </div>
 </body>
 
-<footer>
+<nav>
+    <a href="/">Home</a> |
+    <a href="/beers">Browse Brews</a>
     <a href="/auth/sign-out">Sign out</a>
-</footer>
+</nav>
 
 </html>
