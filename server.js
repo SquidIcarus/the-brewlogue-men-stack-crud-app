@@ -57,7 +57,10 @@ app.get("/", async (req, res) => {
 
 app.get("/beers", async (req, res) => {
     const allBeers = await Beer.find();
-    res.render("beers/index.ejs", { beers: allBeers });
+    res.render("beers/index.ejs", {
+        beers: allBeers,
+        user: req.session.user     // passes user data to views
+    });
 });
 
 app.get("/beers/new", requireAdmin, (req, res) => {       //   `requireAdmin` applied middleware to protect admin routes
@@ -66,7 +69,10 @@ app.get("/beers/new", requireAdmin, (req, res) => {       //   `requireAdmin` ap
 
 app.get("/beers/:beerId", async (req, res) => {
     const foundBeer = await Beer.findById(req.params.beerId);
-    res.render("beers/show.ejs", { beer: foundBeer });
+    res.render("beers/show.ejs", {
+        beer: foundBeer,
+        user: req.session.user    
+    });
 });
 
 app.delete("/beers/:beerId", requireAdmin, async (req, res) => {
@@ -85,9 +91,9 @@ app.get("/beers/:beerId/edit", requireAdmin, async (req, res) => {
 
 app.get("/brewden", (req, res) => {
     if (req.session.user && req.session.user.role === 'admin') {    // checks for admin role to enter brewden
-        res.render("/brewden");
+        res.render("brewden.ejs", { user: req.session.user });
     } else {
-        res.render("/forbidden");
+        res.render("forbidden.ejs", { user: req.session.user });
     }
 });
 
