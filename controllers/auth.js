@@ -6,15 +6,21 @@ const bcrypt = require("bcrypt");
 // GET
 
 router.get("/sign-up", (req, res) => {
-    res.render("auth/sign-up.ejs", { isAdminSignup: false }); // if user sign up is !== brewmaster
+    res.render("auth/sign-up.ejs", { isAdminSignup: false,
+        user: req.session.user || null  // checks if user exists OR if undefined NULL
+     }); 
 });
 
 router.get("/admin/sign-up", (req, res) => {
-    res.render("auth/sign-up.ejs", { isAdminSignup: true }); // is signing up as brewmaster
+    res.render("auth/sign-up.ejs", { isAdminSignup: true,
+        user: req.session.user || null
+     }); 
 })
 
 router.get("/sign-in", (req, res) => {
-    res.render("auth/sign-in.ejs");
+    res.render("auth/sign-in.ejs", {
+        user: req.session.user || null
+    });
 });
 
 router.get("/sign-out", (req, res) => {

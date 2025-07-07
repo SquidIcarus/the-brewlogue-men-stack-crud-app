@@ -1,43 +1,32 @@
-<!DOCTYPE html>
 <html lang="en">
+
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"> -->
     <ling rel="stylesheet" href="/stylesheets/style.css" />
     <title>Brew Catalog</title>
 </head>
 
+
 <body>
-    <h1>The Brewlogue</h1>
+    <%- include('../partials/_navbar') %>
 
-    <% if (user && user.role==='admin' ) { %>
-        <a href="/beers/new">Add New Beer</a>
-        <% } %>
-
-            <ul>
-                <% beers.forEach(beer=> { %>
-                    <li>
-                        <a href="/beers/<%= beer._id %>">
-                            <%= beer.name %>
-                        </a>
-                    </li>
-                    <% }); %>
-            </ul>
-</body>
-<nav>
-    <a href="/">Home</a> |
-
-    <% if (user) { %>
-        <a href="/auth/sign-out">Log Out</a>
-        <% if (user.role==='admin' ) { %>
-            | <a href="/brewden">Brewers' Den</a>
+        <% if (user && user.role==='admin' ) { %>
+            <a href="/beers/new">Add New Beer</a>
             <% } %>
-                <% } else { %>
-                    <a href="/auth/sign-in">Log in</a> |
-                    <a href="/auth/sign-up">Sign up</a>
-                    <% } %>
-</nav>
 
+
+                <ul>
+                    <% beers.forEach(beer=> { %>
+                        <li>
+                            <a href="/beers/<%= beer._id %>">
+                                <%= beer.name %>
+                            </a>
+                        </li>
+                        <% }); %>
+                </ul>
+</body>
 
 </html>

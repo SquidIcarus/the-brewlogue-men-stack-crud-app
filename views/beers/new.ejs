@@ -4,11 +4,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"> -->
     <link rel="stylesheet" href="/stylesheets/style.css" />
     <title>New Brew</title>
 </head>
 
 <body>
+    <%- include('../partials/_navbar') %>
+
     <h1>Upload a new brew!</h1>
     <form action="/beers" method="POST">
         <label for="name">Name:</label>
@@ -33,15 +36,5 @@
         <button type="submit">Add Beer</button>
     </form>
 </body>
-<br>
-
-<nav>
-    <a href="/">Home</a> |
-    <a href="/beers">Browse Brews</a>
-    <% if (user && user.role==='admin' ) { %>
-        | <a href="/brew-den">Brewers' Den</a>
-        <% } %>
-</nav>
-
 
 </html>

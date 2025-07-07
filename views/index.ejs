@@ -4,35 +4,27 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"> -->
+    <ling rel="stylesheet" href="/stylesheets/style.css" />
     <title>The Brewlogue</title>
 </head>
 
 <body>
-    <% if (user) { %>
-        <h1>Welcome to the Brewlogue, <%= user.username %>!</h1>
-        <% if (user.role==='admin' ) { %>
-            <p><a href="/brewden" class="admin-link">Brewers' Den (Admin Portal)</a></p>
-            <% } %>
+    <%- include('partials/_navbar') %>
 
-                <% } else { %>
-                    <h1>Welcome to the Brewlogue</h1>
-                    <h2>A catalog of beers!</h2>
-                    <p>
-                        <a href="/auth/sign-up">Sign Up</a> or <a href="/auth/sign-in">Log In</a>.
-                    </p>
-                    <% } %>
-                        <nav>
-                            <a href="/beers">Browse Brews</a>
-                        </nav>
+        <% if (user) { %>
+            <h1>Welcome to the Brewlogue, <%= user.username %>!</h1>
+            <% if (user.role==='admin' ) { %>
+                <p><a href="/brewden" class="admin-link">Brewers' Den (Admin Portal)</a></p>
+                <% } %>
+
+                    <% } else { %>
+                        <h1>Welcome to the Brewlogue!</h1>
+                        <h2><a href="/beers">A Catalog of Craft Beers!</a>.</h2>
+                                                  
+                        
+                        <% } %>
+
 </body>
-
-<footer>
-    <br>
-    <% if (user) { %>
-        <a href="/auth/sign-out">Log Out</a>
-        <% } %>
-
-</footer>
 
 </html>

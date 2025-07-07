@@ -4,39 +4,42 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"> -->
+    <ling rel="stylesheet" href="/stylesheets/style.css" />
     <title>Sign Up</title>
 </head>
 
 <body>
-    <h1>
-        <%= isAdminSignup ? 'Create a new admin account!' : 'Create a new account!' %>
-    </h1>
-    <form action="<%= isAdminSignup ? '/auth/admin/sign-up' : '/auth/sign-up' %>" method="POST">
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username" required />
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required />
-        <label for="confirmPassword">Confirm Password:</label>
-        <input type="password" name="confirmPassword" id="confirmPassword" required />
+    <%- include('../partials/_navbar') %>
+        <h1>
+            <%= isAdminSignup ? 'Create a new admin account!' : 'Create a new account!' %>
+        </h1>
+        <form action="<%= isAdminSignup ? '/auth/admin/sign-up' : '/auth/sign-up' %>" method="POST">
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" required />
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required />
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" name="confirmPassword" id="confirmPassword" required />
 
-        <% if (isAdminSignup) { %>
-            <label for="adminCode">Admin Code:</label>
-            <input type="password" name="adminCode" id="adminCode" required />
-            <% } %>
-                <button type="submit">Sign Up</button>
-    </form>
+            <% if (isAdminSignup) { %>
+                <label for="adminCode">Admin Code:</label>
+                <input type="password" name="adminCode" id="adminCode" required />
+                <% } %>
+                    <button type="submit">Sign Up</button>
+        </form>
 
-    <% if (!isAdminSignup) { %>
-        <p>Need Admin access? <a href="/auth/admin/sign-up">Sign up as Admin</a></p>
-        <% } else { %>
-            <p>Regular user? <a href="/auth/sign-up">Sign up here</a></p>
-            <% } %>
+        <% if (!isAdminSignup) { %>
+            <p>Need Admin access? <a href="/auth/admin/sign-up">Sign up as Admin</a></p>
+            <% } else { %>
+                <p>Regular user? <a href="/auth/sign-up">Sign up here</a></p>
+                <% } %>
 
-                <br>
-                <footer>
-                    <a href="/">Home</a> |
-                    <a href="/auth/sign-in">Log In</a>
-                </footer>
+                    <br>
+                    <footer>
+                        <a href="/">Home</a> |
+                        <a href="/auth/sign-in">Log In</a>
+                    </footer>
 </body>
 
 

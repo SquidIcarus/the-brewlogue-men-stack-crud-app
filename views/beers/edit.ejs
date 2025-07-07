@@ -4,43 +4,39 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"> -->
     <ling rel="stylesheet" href="/stylesheets/style.css" />
     <title>Edit Beer</title>
 </head>
 
 <body>
-    <h1>Edit <%= beer.name %>
-    </h1>
-    <form action="/beers/<%= beer._id %>?_method=PUT" method="POST">
-        <label for="name">Name:</label>
-        <input type="text" name="name" value="<%= beer.name %>" />
-        <label for="style">Style:</label>
-        <input type="text" name="style" value="<%= beer.style %>" />
-        <label for="flavorProfile">Flavor Profile:</label>
-        <input type="text" name="flavorProfile" value="<%= beer.flavorProfile %>" />
-        <label for="abv">ABV:</label>
-        <input type="number" name="abv" value="<%= beer.abv %>" />
-        <span>%</span>
-        <label for="ibu">IBU:</label>
-        <input type="number" name="ibu" value="<%= beer.ibu %>" />
-        <label for="malt">Malt:</label>
-        <input type="text" name="malt" value="<%= beer.malt %>" />
-        <label for="hops">Hops:</label>
-        <input type="text" name="hops" value="<%= beer.hops %>" />
-        <label for="foodPairing">Pairs With:</label>
-        <input type="text" name="foodPairing" value="<%= beer.foodPairing %>" />
-        <label for="availability">Availability:</label>
-        <input type="text" name="availability" value="<%= beer.availability %>" />
+    <%- include('../partials/_navbar') %>
+
+        <h1>Edit <%= beer.name %>
+        </h1>
+        <form action="/beers/<%= beer._id %>?_method=PUT" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" name="name" value="<%= beer.name %>" />
+            <label for="style">Style:</label>
+            <input type="text" name="style" value="<%= beer.style %>" />
+            <label for="flavorProfile">Flavor Profile:</label>
+            <input type="text" name="flavorProfile" value="<%= beer.flavorProfile %>" />
+            <label for="abv">ABV:</label>
+            <input type="number" name="abv" value="<%= beer.abv %>" />
+            <span>%</span>
+            <label for="ibu">IBU:</label>
+            <input type="number" name="ibu" value="<%= beer.ibu %>" />
+            <label for="malt">Malt:</label>
+            <input type="text" name="malt" value="<%= beer.malt %>" />
+            <label for="hops">Hops:</label>
+            <input type="text" name="hops" value="<%= beer.hops %>" />
+            <label for="foodPairing">Pairs With:</label>
+            <input type="text" name="foodPairing" value="<%= beer.foodPairing %>" />
+            <label for="availability">Availability:</label>
+            <input type="text" name="availability" value="<%= beer.availability %>" />
 
 
-        <button type="submit">Update Beer %></button>
-    </form>
-    <br>
-    <nav>
-        <a href="/">Home</a> |
-        <a href="/beers">Browse Brews</a>
-        <% if (user && user.role==='admin' ) { %>
-            | <a href="/brew-den">Brewers' Den</a>
-            <% } %>
-    </nav>
+            <button type="submit">Update Beer %></button>
+        </form>
+
 </body>

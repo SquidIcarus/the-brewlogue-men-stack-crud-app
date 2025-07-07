@@ -4,30 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"> -->
+    <ling rel="stylesheet" href="/stylesheets/style.css" />
     <title>Brewers' Den</title>
 </head>
 
 <body>
-    <h1>Welcome to the Brewers' Den, <%= user.username %>!</h1>
+    <%- include('partials/_navbar') %>
 
-    <h2>Admin Portal</h2>
-    <div class="admin-options">
-        <!-- <p><a href="/beers/new" button type="submit">Tap a new Brew</a></p> -->
-        <form action="/beers/new">
-            <button type="submit">Tap a new Brew</button>
-        </form>
-        </p>
-        <!-- <p><a href="/beers" class="btn">Manage Existing Brews</a></p> -->
-        <form action="/beers">
-            <button type="submit">Manage Existing Brews</button>
-        </form>
-        </p>
-    </div>
+        <h1>Welcome to the Brewers' Den, <%= user.username %>!</h1>
+
+        <h2>Admin Portal</h2>
+        <div class="admin-options">
+            <!-- <p><a href="/beers/new" button type="submit">Tap a new Brew</a></p> -->
+            <form action="/beers/new">
+                <button type="submit">Tap a new Brew</button>
+            </form>
+            </p>
+            <!-- <p><a href="/beers" class="btn">Manage Existing Brews</a></p> -->
+            <form action="/beers">
+                <button type="submit">Manage Existing Brews</button>
+            </form>
+            </p>
+        </div>
 </body>
-
-<nav>
-    <a href="/">Home</a> |
-    <a href="/auth/sign-out">Log Out</a>
-</nav>
 
 </html>

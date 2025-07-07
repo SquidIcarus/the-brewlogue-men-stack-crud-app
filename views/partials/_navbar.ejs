@@ -1,0 +1,21 @@
+<nav class="navbar">
+    <div class="nav-home">
+        <h1><a href="/">The Brewlogue</a></h1>
+    </div>
+
+    <div class="nav-link">
+        <a href="/beers">Browse Brews</a> |
+
+        <% if (user) { %>
+            <% if (user.role==='admin' ) { %>
+                <a href="/brewden">Brewer's Den</a> |
+                <% } %>
+
+                    <a href="/auth/sign-out">Log Out</a>
+                    <% } else { %>
+                        <a href="/auth/sign-up">Sign Up</a> |
+                        <a href="/auth/sign-in">Log In</a>
+                        <% } %>
+    </div>
+</nav>
+

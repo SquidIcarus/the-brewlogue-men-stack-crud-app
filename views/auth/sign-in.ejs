@@ -4,22 +4,22 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"> -->
+    <ling rel="stylesheet" href="/stylesheets/style.css" />
     <title>Log In</title>
 </head>
 
 <body>
-    <h1>Log In</h1>
-    <form action="/auth/sign-in" method="POST">
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username" />
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" />
-        <button type="submit">Log In</button>
-    </form>
+    <%- include('../partials/_navbar') %>
+
+        <h1>Log In</h1>
+        <form action="/auth/sign-in" method="POST">
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" />
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" />
+            <button type="submit">Log In</button>
+        </form>
 </body>
-<br>
-<footer>
-    <a href="/">Home</a>
-</footer>
 
 </html>
