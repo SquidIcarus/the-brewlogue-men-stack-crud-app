@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/user.js");
 const bcrypt = require("bcrypt");
+
+const User = require("../models/user.js");
 
 // GET
 
@@ -95,7 +96,7 @@ router.post("/sign-in", async (req, res) => {
         req.body.password,
         userInDatabase.password
     )
-    
+
     if (!validPassword) {
         return res.send(`Login failed. Please try again. Return to <a href="/auth/sign-in">Log In</a> page.`);
     }

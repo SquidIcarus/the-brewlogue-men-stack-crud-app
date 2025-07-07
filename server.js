@@ -19,8 +19,10 @@ mongoose.connection.on('connected', () => {
     console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
 });
 
+// SCHEMA IMPORTS
 const Beer = require("./models/beer.js");
-const beer = require("./models/beer.js");
+const Rating = require("./models/rating.js");
+const Comment = require("./models/comment.js");
 
 // MIDDLEWARE STACK
 
@@ -39,10 +41,16 @@ app.use("/auth", authController)
 
 app.use(express.static(path.join(__dirname, "public")));
 
-
 function requireAdmin(req, res, next) {                           // middleware to check if user is admin                 
     if (!req.session.user || req.session.user.role !== 'admin') {
         return res.render("forbidden.ejs", { user: req.session.user });
+    }
+    next();
+};
+
+function requireLogin(req, res, next) {        // middleware function to 
+    if (!req.session.user) {                    // check if user is logged in
+        return res.redirect("/auth/sign-in");   // if not, redirect to sign in to comment
     }
     next();
 }
@@ -68,16 +76,19 @@ app.get("/beers/new", requireAdmin, (req, res) => {       //   `requireAdmin` ap
 });
 
 app.get("/beers/:beerId", async (req, res) => {
-    const foundBeer = await Beer.findById(req.params.beerId).populate('createdBy'); // .populate to get createdBy object data to access brewer's username
-    res.render("beers/show.ejs", {
-        beer: foundBeer,
-        user: req.session.user
-    });
-});
+    try {
+        const foundBeer = await Beer.findById(req.params.beerId).populate('createdBy');
+        const comments = await Comment.find({ beer: req.params.beerId }).populate('commentBy')
 
-app.delete("/beers/:beerId", requireAdmin, async (req, res) => {
-    await Beer.findByIdAndDelete(req.params.beerId);
-    res.redirect("/beers");
+        res.render("beers/show.ejs", {
+            beer: foundBeer,
+            comments: comments,
+            user: req.session.user
+        });
+    } catch (err) {
+        console.error("Couldn't get beer data", err);
+        res.status(500).send("Error beer won't load")
+    }
 });
 
 app.get("/beers/:beerId/edit", requireAdmin, async (req, res) => {
@@ -105,12 +116,26 @@ app.post("/beers", requireAdmin, async (req, res) => {
             ...req.body,    // spreads all properties from the requested body into the new object
             createdBy: req.session.user._id
         };
-
         await Beer.create(newBeer);
         res.redirect("/beers");
     } catch (err) {
         console.error("Error saving beer", err);
-        res.status(500).send("Error saving beer to database");
+        res.status(500).send("Error connecting to save beer, try again later");
+    }
+});
+
+app.post("/beers/:beerId/comments", requireLogin, async (req, res) => {
+    try {
+        const newComment = {
+            comment: req.body.comment,
+            commentBy: req.session.user._id,
+            beer: req.params.beerId
+        };
+        await Comment.create(newComment);
+        res.redirect(`/beers/${req.params.beerId}`);
+    } catch (err) {
+        console.error("Couldn't save comment", err);
+        res.status(500).send("I am error, comment not saved")
     }
 });
 
@@ -125,6 +150,28 @@ app.put("/beers/:beerId", requireAdmin, async (req, res) => {
         res.status(500).send("Error updating beer to database");
     }
 });
+
+//DELETE
+app.delete("/beers/:beerId", requireAdmin, async (req, res) => {
+    await Beer.findByIdAndDelete(req.params.beerId);
+    res.redirect("/beers");
+});
+
+app.delete("/beers/:beerId/comments/:commentId", requireLogin, async (req, res) => {  // route to delete comment, uses requireLogin middleware function
+    try {
+        const comment = await Comment.findById(req.params.commentId);
+        if (comment.commentBy.toString() !== req.session.user._id.toString() && req.session.user.role !== 'admin') { // checks if comment from user or admin
+            return res.send("You can only delete your own comments");
+        }
+        await Comment.findByIdAndDelete(req.params.commentId);        // delete comment and 
+        res.redirect(`/beers/${req.params.beerId}`);                  // redirect to beers index page
+    } catch (err) {
+        console.error("Error, couldn't delete comment", err);
+        res.status(500).send("Error, couldn't delete comment");
+    }
+});
+
+
 
 app.listen(port, () => {
     console.log(`The express app is ready on port ${port}!`);
