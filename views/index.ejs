@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+    <!-- <link href="https://api.fontshare.com/v2/css?f[]=alpino@500&display=swap" rel="stylesheet"> -->
     <ling rel="stylesheet" href="/stylesheets/style.css" />
     <title>The Brewlogue</title>
 </head>
@@ -13,7 +14,7 @@
     <%- include('partials/_navbar') %>
 
         <% if (user) { %>
-            <h1>Welcome to the Brewlogue, <%= user.username %>!</h1>
+            <h1 class="is-size-3">Welcome to the Brewlogue, <%= user.username %>!</h1>
             <% if (user.role==='admin' ) { %>
                 <p><a href="/brewden" class="admin-link">Brewers' Den (Admin Portal)</a></p>
                 <% } %>
@@ -21,8 +22,8 @@
                     <% } else { %>
                         <h1>Welcome to the Brewlogue!</h1>
                         <h2><a href="/beers">A Catalog of Craft Beers!</a>.</h2>
-                                                  
-                        
+
+
                         <% } %>
 
 </body>

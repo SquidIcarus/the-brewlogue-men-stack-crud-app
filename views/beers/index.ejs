@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
     <ling rel="stylesheet" href="/stylesheets/style.css" />
     <title>Brew Catalog</title>
 </head>
@@ -13,20 +13,47 @@
 <body>
     <%- include('../partials/_navbar') %>
 
-        <% if (user && user.role==='admin' ) { %>
-            <a href="/beers/new">Add New Beer</a>
-            <% } %>
+        <section class="section">
+            <div class="container">
+                <h1 class="title has-text-centered">Our Craft Beer Collection</h1>
 
+                <% if (user && user.role==='admin' ) { %>
+                    <div class="has-text-centered mb-5">
+                        <a href="/beers/new" class="button is-primary is-large">
+                            <strong>Add New Beer</strong>
+                        </a>
+                    </div>
+                    <% } %>
 
-                <ul>
-                    <% beers.forEach(beer=> { %>
-                        <li>
-                            <a href="/beers/<%= beer._id %>">
-                                <%= beer.name %>
-                            </a>
-                        </li>
-                        <% }); %>
-                </ul>
+                        <div class="columns is-multiline">
+                            <% beers.forEach(beer=> { %>
+                                <div class="column is-4">
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <h3 class="title is-5">
+                                                <%= beer.name %>
+                                            </h3>
+                                            <p class="subtitle is-6">
+                                                <%= beer.style %>
+                                            </p>
+                                            <div class="content">
+                                                <p><strong>ABV:</strong>
+                                                    <%= beer.abv %>%
+                                                </p>
+                                                <p><strong>IBU:</strong>
+                                                    <%= beer.ibu %>
+                                                </p>
+                                            </div>
+                                            <a href="/beers/<%= beer._id %>" class="button is-primary is-fullwidth">
+                                                View Details
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% }); %>
+                        </div>
+            </div>
+        </section>
 </body>
 
 </html>

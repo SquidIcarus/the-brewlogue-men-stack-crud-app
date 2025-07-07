@@ -1,20 +1,42 @@
-<nav class="navbar">
-    <div class="nav-home">
-        <h1><a href="/">The Brewlogue</a></h1>
+<nav class="navbar is-dark" role="navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+            <h1 class="title is-3 has-text-warning">The Brewlogue</h1> 
+        </a> |
     </div>
 
-    <div class="nav-link">
-        <a href="/beers">Browse Brews</a> |
-
-        <% if (user) { %>
-            <% if (user.role==='admin' ) { %>
-                <a href="/brewden">Brewer's Den</a> |
+    <div class="navbar-menu">
+        <div class="navbar-start">
+            <a href="/beers" class="navbar-item has-text-warning is-size-4">
+                Browse Brews
+            </a> |
+            <% if (user && user.role==='admin' ) { %>
+                <a href="/brewden" class="navbar-item has-text-warning is-size-4">
+                    Brewer's Den
+                </a>
                 <% } %>
+        </div>
 
-                    <a href="/auth/sign-out">Log Out</a>
-                    <% } else { %>
-                        <a href="/auth/sign-up">Sign Up</a> |
-                        <a href="/auth/sign-in">Log In</a>
-                        <% } %>
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                    <% if (user) { %>
+                        <span class="has-text-white is-size-4 has-text-weight-bold">
+                            Hello, <%= user.username %>!
+                        </span>
+                        <a href="/auth/sign-out" class="button is-warning">
+                            Log Out
+                        </a>
+                        <% } else { %>
+                            <a href="/auth/sign-up" class="button is-light">
+                                <strong>Sign Up</strong>
+                            </a>
+                            <a href="/auth/sign-in" class="button is-warning">
+                                Log In
+                            </a>
+                            <% } %>
+                </div>
+            </div>
+        </div>
     </div>
 </nav>

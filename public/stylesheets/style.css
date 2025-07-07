@@ -1,21 +1,19 @@
- @import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz@9..40&display=swap");
+.beer-stats {
+    display: flex;
+}
 
- .beer-stats {
-     display: flex;
- }
+.botanicals {
+    display: flex;
+}
 
- .botanicals {
-     display: flex;
- }
+.edit-delete {
+    display: flex;
+}
 
- .edit-delete {
-     display: flex;
- }
+.beer-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 250px;
+    gap: 10px;
 
- .beer-form {
-     display: flex;
-     flex-direction: column;
-     max-width: 250px;
-     gap: 10px;
-
- }
+}
