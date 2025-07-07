@@ -36,8 +36,13 @@ const beerSchema = new mongoose.Schema({
     },
     availability: {
         type: String,
-        required: true
+        required: true,
     },
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+    }
 });
 
 module.exports = new mongoose.model("Beer", beerSchema);

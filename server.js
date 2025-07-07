@@ -68,10 +68,10 @@ app.get("/beers/new", requireAdmin, (req, res) => {       //   `requireAdmin` ap
 });
 
 app.get("/beers/:beerId", async (req, res) => {
-    const foundBeer = await Beer.findById(req.params.beerId);
+    const foundBeer = await Beer.findById(req.params.beerId).populate('createdBy'); // .populate to get createdBy object data to access brewer's username
     res.render("beers/show.ejs", {
         beer: foundBeer,
-        user: req.session.user    
+        user: req.session.user
     });
 });
 
@@ -101,7 +101,12 @@ app.get("/brewden", (req, res) => {
 
 app.post("/beers", requireAdmin, async (req, res) => {
     try {
-        await Beer.create(req.body);
+        const newBeer = {
+            ...req.body,    // spreads all properties from the requested body into the new object
+            createdBy: req.session.user._id
+        };
+
+        await Beer.create(newBeer);
         res.redirect("/beers");
     } catch (err) {
         console.error("Error saving beer", err);
