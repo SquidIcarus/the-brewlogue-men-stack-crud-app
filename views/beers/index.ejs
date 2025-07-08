@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
-    <ling rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
     <title>Brew Catalog</title>
 </head>
 
@@ -19,7 +19,7 @@
 
                 <% if (user && user.role==='admin' ) { %>
                     <div class="has-text-centered mb-5">
-                        <a href="/beers/new" class="button is-primary is-large">
+                        <a href="/beers/new" class="button is-dark is-large title is-5">
                             <strong>Add New Beer</strong>
                         </a>
                     </div>
@@ -28,27 +28,26 @@
                         <div class="columns is-multiline">
                             <% beers.forEach(beer=> { %>
                                 <div class="column is-4">
-                                    <div class="card">
-                                        <div class="card-content">
-                                            <h3 class="title is-5">
-                                                <%= beer.name %>
-                                            </h3>
-                                            <p class="subtitle is-6">
-                                                <%= beer.style %>
-                                            </p>
-                                            <div class="content">
-                                                <p><strong>ABV:</strong>
-                                                    <%= beer.abv %>%
+                                    <a href="/beers/<%= beer._id %>" class="card-link">
+                                        <div class="card is-hoverable has-background-dark">
+                                            <div class="card-content">
+                                                <h3 class="title is-5 has-text-warning">
+                                                    <%= beer.name %>
+                                                </h3>
+                                                <p class="subtitle is-6">
+                                                    <%= beer.style %>
                                                 </p>
-                                                <p><strong>IBU:</strong>
-                                                    <%= beer.ibu %>
-                                                </p>
+                                                <div class="content">
+                                                    <p><strong>ABV:</strong>
+                                                        <%= beer.abv %>%
+                                                    </p>
+                                                    <p><strong>IBU:</strong>
+                                                        <%= beer.ibu %>
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <a href="/beers/<%= beer._id %>" class="button is-primary is-fullwidth">
-                                                View Details
-                                            </a>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                                 <% }); %>
                         </div>
