@@ -5,25 +5,57 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
-    <ling rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
     <title>The Brewlogue</title>
 </head>
 
 <body>
     <%- include('partials/_navbar') %>
 
-        <% if (user) { %>
-            <h1 class="is-size-3">Welcome to the Brewlogue, <%= user.username %>!</h1>
-            <% if (user.role==='admin' ) { %>
-                <p><a href="/brewden" class="admin-link">Brewers' Den (Admin Portal)</a></p>
-                <% } %>
+        <section class="hero is-text is-medium">
+            <div class="hero-body">
+                <div class="container has-text-centered">
+                    <% if (user) { %>
+                        <h1 class="title is-2 has-text-dark">Welcome back, <%= user.username %>!</h1>
+                        <p class="subtitle is-4 has-text-dark">Ready to explore some great beers?</p>
+                        <% } else { %>
+                            <h1 class="title is-2 has-text-dark">Welcome to The Brewlogue</h1>
+                            <p class="subtitle is-4 has-text-dark">A Catalog of Craft Beers</p>
+                            <% } %>
+                </div>
+            </div>
+        </section>
 
-                    <% } else { %>
-                        <h1>Welcome to the Brewlogue!</h1>
-                        <h2><a href="/beers">A Catalog of Craft Beers!</a>.</h2>
+        <section class="section">
+            <div class="container has-text-centered">
 
+                <div class="mb-6">
+                    <a href="/beers" class="button is-dark is-large">
+                        <strong>View The Brews</strong>
+                    </a>
+                </div>
 
-                        <% } %>
+                <% if (!user) { %>
+                    <div class="buttons is-centered">
+                        <a href="/auth/sign-up" class="button is-warning is-medium">
+                            <strong>Sign Up</strong>
+                        </a>
+                        <a href="/auth/sign-in" class="button is-light is-medium">
+                            <strong>Sign In</strong>
+                        </a>
+                    </div>
+                    <% } %>
+
+                        <% if (user && user.role==='admin' ) { %>
+                            <div class="mt-5">
+                                <a href="/brewden" class="button is-warning">
+                                    <strong>Brewers' Den (Admin)</strong>
+                                </a>
+                            </div>
+                            <% } %>
+
+            </div>
+        </section>
 
 </body>
 
