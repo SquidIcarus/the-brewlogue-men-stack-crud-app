@@ -70,10 +70,6 @@ router.post("/admin/sign-up", async (req, res) => {
         return res.send(`Passwords must match. Return to Admin <a href="/auth/admin/sign-up">Sign Up</a> page.`);
     }
 
-    if (req.body.adminCode !== process.env.ADMIN_SECRET_CODE) {
-        return res.send(`Invalid admin code. Return to Admin <a href="/auth/admin/sign-up">Sign Up</a> page`);
-    }
-
     const hashedPassword = bcrypt.hashSync(req.body.password, 10);
 
     const user = await User.create({
